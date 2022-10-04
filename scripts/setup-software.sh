@@ -105,9 +105,3 @@ echo "Platform Navigator URL: https://$PLATFORM_NAVIGATOR_URL"
 IBM_EVENT_STREAM_UI=$(oc get EventStreams ademo-es -o jsonpath={'.status.routes.ui'})
 echo "Event Streams UI: https://$IBM_EVENT_STREAM_UI"
 echo ""
-echo ""
-line_separator "Component URLs"
-EVENT_GATEWAY_URL=$(oc get eventgatewaycluster ademo-egw -o jsonpath='{..endpoints[?(@.name == "eventGateway")].uri}')
-echo "Event API endpoint base: $EVENT_GATEWAY_URL"
-EVENT_GATEWAY_MANAGER=$(oc get eventgatewaycluster ademo-egw -o jsonpath='{..endpoints[?(@.name == "eventGatewayManager")].uri}')
-echo "Event Management endpoint: $EVENT_GATEWAY_MANAGER"
