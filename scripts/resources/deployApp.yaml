@@ -1,0 +1,74 @@
+# © Copyright IBM Corporation 2022
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flight-board
+  labels:
+    app: flight-board
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flight-board
+  template:
+    metadata:
+      labels:
+        app: flight-board
+    spec:
+      containers:
+      - name: flight-board
+        image: image-registry.openshift-image-registry.svc:5000/cp4i/flightboard:latest
+        env:
+        - name: KAFKA_REST_URL
+          value: "http://ademo-es-ibm-es-recapi-external.cp4i.svc.cluster.local:8080/topics"
+        - name: KAFKA_TOPIC
+          value: "flight-delays"
+        securityContext:
+          runAsUser: 0
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: 0.5
+          limits:
+            memory: "512Mi"
+            cpu: 1
+        envFrom:
+        - configMapRef:
+            name: app-env
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flight-board
+spec:
+  selector:
+    app: flight-board
+  ports:
+    - protocol: TCP
+      port: 9080
+      targetPort: 9080
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: flight-board
+spec:
+  to:
+    kind: Service
+    name: flight-board
+    weight: 100
+  port:
+    targetPort: 9080
+  wildcardPolicy: None

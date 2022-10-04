@@ -1,0 +1,494 @@
+{
+    "departures": [
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Amsterdam",
+            "destinationCode": "AMS",
+            "carrier": "KLM",
+            "number": "KL 1046",
+            "scheduledDeparture": "06:00",
+            "delay": 10
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Lanzarote",
+            "destinationCode": "ACE",
+            "carrier": "easyJet",
+            "number": "EZY 6193",
+            "scheduledDeparture": "06:10",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Malaga",
+            "destinationCode": "AGP",
+            "carrier": "easyJet",
+            "number": "EZY 6051",
+            "scheduledDeparture": "06:25",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Faro",
+            "destinationCode": "FAO",
+            "carrier": "easyJet",
+            "number": "EZY 6005",
+            "scheduledDeparture": "06:45",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Glasgow",
+            "destinationCode": "GLA",
+            "carrier": "easyJet",
+            "number": "EZY 401",
+            "scheduledDeparture": "07:00",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Edinburgh",
+            "destinationCode": "EDI",
+            "carrier": "easyJet",
+            "number": "EZY 421",
+            "scheduledDeparture": "07:00",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Belfast Intl",
+            "destinationCode": "BFS",
+            "carrier": "easyJet",
+            "number": "EZY 441",
+            "scheduledDeparture": "07:00",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Tenerife",
+            "destinationCode": "TFS",
+            "carrier": "Ryanair",
+            "number": "FR 4753",
+            "scheduledDeparture": "07:00",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Dublin",
+            "destinationCode": "DUB",
+            "carrier": "Ryanair",
+            "number": "FR 505",
+            "scheduledDeparture": "07:00",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Palma",
+            "destinationCode": "SPC",
+            "carrier": "easyJet",
+            "number": "EZY 6039",
+            "scheduledDeparture": "07:10",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Barcelona",
+            "destinationCode": "BCN",
+            "carrier": "easyJet",
+            "number": "EZY 6025",
+            "scheduledDeparture": "07:15",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Alicante",
+            "destinationCode": "ALC",
+            "carrier": "easyJet",
+            "number": "EZY 6071",
+            "scheduledDeparture": "07:25",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Paris ORY",
+            "destinationCode": "ORY",
+            "carrier": "easyJet",
+            "number": "EZY 6235",
+            "scheduledDeparture": "07:30",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Amsterdam",
+            "destinationCode": "AMS",
+            "carrier": "easyJet",
+            "number": "EZY 6161",
+            "scheduledDeparture": "07:45",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Lanzarote",
+            "destinationCode": "ACE",
+            "carrier": "Jet2.COM",
+            "number": "LS 1801",
+            "scheduledDeparture": "07:55",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Dublin",
+            "destinationCode": "DUB",
+            "carrier": "Aer Lingus",
+            "number": "EI 297",
+            "scheduledDeparture": "08:35",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Cape Verde",
+            "destinationCode": "SID",
+            "carrier": "TUI",
+            "number": "TOM 244",
+            "scheduledDeparture": "09:00",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Tenerife",
+            "destinationCode": "TFS",
+            "carrier": "Jet2.COM",
+            "number": "LS 1891",
+            "scheduledDeparture": "09:20",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Treviso",
+            "destinationCode": "TSF",
+            "carrier": "Ryanair",
+            "number": "FR 3176",
+            "scheduledDeparture": "10:00",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Porto",
+            "destinationCode": "OPO",
+            "carrier": "easyJet",
+            "number": "EZY 6147",
+            "scheduledDeparture": "10:15",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Geneva",
+            "destinationCode": "GVA",
+            "carrier": "easyJet",
+            "number": "EZY 6149",
+            "scheduledDeparture": "10:25",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Edinburgh",
+            "destinationCode": "EDI",
+            "carrier": "easyJet",
+            "number": "EZY 423",
+            "scheduledDeparture": "10:30",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Tenerife",
+            "destinationCode": "TFS",
+            "carrier": "TUI",
+            "number": "TOM 6278",
+            "scheduledDeparture": "11:10",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Prague",
+            "destinationCode": "PRG",
+            "carrier": "easyJet",
+            "number": "EZY 6265",
+            "scheduledDeparture": "11:25",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Glasgow",
+            "destinationCode": "GLA",
+            "carrier": "easyJet",
+            "number": "EZY 410",
+            "scheduledDeparture": "12:30",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Rome",
+            "destinationCode": "FCO",
+            "carrier": "easyJet",
+            "number": "EZY 6185",
+            "scheduledDeparture": "12:50",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Gran Canaria",
+            "destinationCode": "LPA",
+            "carrier": "easyJet",
+            "number": "EZY 6195",
+            "scheduledDeparture": "13:00",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Budapest",
+            "destinationCode": "BUD",
+            "carrier": "Ryanair",
+            "number": "FR 8206",
+            "scheduledDeparture": "13:00",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Geneva",
+            "destinationCode": "GVA",
+            "carrier": "easyJet",
+            "number": "EZY 6155",
+            "scheduledDeparture": "13:35",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Tenerife",
+            "destinationCode": "TFS",
+            "carrier": "easyJet",
+            "number": "EZY 6095",
+            "scheduledDeparture": "13:40",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Dublin",
+            "destinationCode": "DUB",
+            "carrier": "Ryanair",
+            "number": "FR 507",
+            "scheduledDeparture": "14:00",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Reykjavík",
+            "destinationCode": "RKV",
+            "carrier": "easyJet",
+            "number": "EZY 6021",
+            "scheduledDeparture": "14:35",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Glasgow",
+            "destinationCode": "GLA",
+            "carrier": "easyJet",
+            "number": "EZY 405",
+            "scheduledDeparture": "14:45",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Madrid",
+            "destinationCode": "MAD",
+            "carrier": "Ryanair",
+            "number": "FR 155",
+            "scheduledDeparture": "14:45",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Lisbon",
+            "destinationCode": "LIS",
+            "carrier": "easyJet",
+            "number": "EZY 6253",
+            "scheduledDeparture": "15:15",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Edinburgh",
+            "destinationCode": "EDI",
+            "carrier": "easyJet",
+            "number": "EZY 427",
+            "scheduledDeparture": "15:30",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Gibraltar",
+            "destinationCode": "GIB",
+            "carrier": "easyJet",
+            "number": "EZY 6299",
+            "scheduledDeparture": "15:40",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Malaga",
+            "destinationCode": "AGP",
+            "carrier": "Ryanair",
+            "number": "FR 8121",
+            "scheduledDeparture": "15:55",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Jersey",
+            "destinationCode": "JER",
+            "carrier": "Blue Islands",
+            "number": "SI 4485",
+            "scheduledDeparture": "16:30",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Madrid",
+            "destinationCode": "MAD",
+            "carrier": "easyJet",
+            "number": "EZY 6035",
+            "scheduledDeparture": "16:40",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Nice",
+            "destinationCode": "NCE",
+            "carrier": "easyJet",
+            "number": "EZY 6113",
+            "scheduledDeparture": "16:55",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Dublin",
+            "destinationCode": "DUB",
+            "carrier": "Ryanair",
+            "number": "FR 509",
+            "scheduledDeparture": "17:10",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Amsterdam",
+            "destinationCode": "AMS",
+            "carrier": "KLM",
+            "number": "KL 1054",
+            "scheduledDeparture": "17:25",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Edinburgh",
+            "destinationCode": "EDI",
+            "carrier": "easyJet",
+            "number": "EZY 431",
+            "scheduledDeparture": "17:30",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Amsterdam",
+            "destinationCode": "AMS",
+            "carrier": "easyJet",
+            "number": "EZY 6167",
+            "scheduledDeparture": "18:10",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Paris CDG",
+            "destinationCode": "CDG",
+            "carrier": "easyJet",
+            "number": "EZY 6223",
+            "scheduledDeparture": "18:30",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Warsaw WMI",
+            "destinationCode": "WMI",
+            "carrier": "Ryanair",
+            "number": "FR 4135",
+            "scheduledDeparture": "18:40",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Belfast Intl",
+            "destinationCode": "BFS",
+            "carrier": "easyJet",
+            "number": "EZY 447",
+            "scheduledDeparture": "19:20",
+            "delay": 0
+        },
+        {
+            "origin": "Bristol",
+            "originCode": "BRS",
+            "destination": "Newcastle",
+            "destinationCode": "NCL",
+            "carrier": "easyJet",
+            "number": "EZY 570",
+            "scheduledDeparture": "19:20",
+            "delay": 0
+        }
+    ]
+}

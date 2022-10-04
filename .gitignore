@@ -1,0 +1,17 @@
+flightboard/target/test-classes
+flightboard/target/maven-status
+flightboard/target/maven-archiver
+flightboard/target/generated-sources
+flightboard/target/generated-test-sources
+flightboard/target/classes
+flightboard/target/tmp
+flightboard/target/liberty
+flightboard/target/liberty-alt-output-dir
+flightboard/target/liberty-plugin-config.xml
+flightboard/target/flight-board
+eem-client-app/target/test-classes
+eem-client-app/target/maven-status
+eem-client-app/target/maven-archiver
+eem-client-app/target/generated-sources
+eem-client-app/target/classes
+eem-client-app/target/archive-tmp
