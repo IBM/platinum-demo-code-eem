@@ -17,6 +17,7 @@ import java.io.ByteArrayInputStream;
 import java.io.StringReader;
 import java.io.InputStream;
 import java.io.IOException;
+import java.io.FileInputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -97,7 +98,7 @@ public class FlightManager {
 
             try
             {
-              InputStream is = this.getClass().getClassLoader().getResourceAsStream("db.json");
+              InputStream is = new FileInputStream("/etc/db.json");
               JsonReader jr = Json.createReader(is);
 
               JsonObject docListResponse = jr.readObject();

@@ -13,4 +13,5 @@
 # limitations under the License.
 FROM openjdk:16.0.1
 COPY target/flight-board.jar /app/flight-board.jar
+COPY src/db.json /etc/db.json
 CMD ["java", "-jar", "/app/flight-board.jar"]
