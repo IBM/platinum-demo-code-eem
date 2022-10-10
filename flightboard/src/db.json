@@ -8,7 +8,7 @@
             "carrier": "KLM",
             "number": "KL 1046",
             "scheduledDeparture": "06:00",
-            "delay": 10
+            "delay": 0
         },
         {
             "origin": "Bristol",
