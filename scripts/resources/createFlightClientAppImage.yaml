@@ -22,7 +22,7 @@ spec:
       name: "flightclientapp:latest"
   source:
     git:
-      uri: "https://github.com/callumpjackson/testflightapp.git"
+      uri: "https://github.com/IBM/platinum-demo-code-eem.git"
     contextDir: "eem-client-app"
   strategy:
     type: Docker
