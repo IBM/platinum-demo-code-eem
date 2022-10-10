@@ -87,6 +87,10 @@ limitations under the License.
                 .catch(function (err) {
                     console.log('error: ' + err);
                 });
+              window.setTimeout( function() {
+                        reset();
+                        reload();
+                    }, 300000);
         }
 
         function reset() {
@@ -124,12 +128,6 @@ limitations under the License.
             xhr.send(data);
             setTimeout(() => {  reload(); }, 2000);
         }
-
-
-        window.setTimeout( function() {
-                reset();
-                reload();
-            }, 300000);
 
         reload();
     </script>
