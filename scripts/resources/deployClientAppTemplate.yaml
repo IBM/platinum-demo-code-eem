@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: flight-client-app
-        image: image-registry.openshift-image-registry.svc:5000/cp4i/flightclientapp:latest
+        image: image-registry.openshift-image-registry.svc:5000/$NAMESPACE/flightclientapp:latest
         env:
         - name: GATEWAY_ENDPOINT
           value: "$GATEWAY_ENDPOINT"

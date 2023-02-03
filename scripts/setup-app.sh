@@ -32,7 +32,7 @@ line_separator () {
   echo "####################### $1 #######################"
 }
 
-namespace=$1
+export namespace=$1
 
 if [ -z $namespace ]
 then
@@ -70,6 +70,9 @@ oc start-build build-flight-board-image
 sleep 60s
 
 oc adm policy add-scc-to-user -z default anyuid
+
+( echo "cat <<EOF" ; cat resources/deployAppTemplate.yaml ; echo EOF ) | sh > resources/deployApp.yaml
+
 oc apply -f resources/deployApp.yaml
 
 # Wait for pods to be ready then run cronjob straight away to populate flights

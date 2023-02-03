@@ -29,10 +29,10 @@ spec:
     spec:
       containers:
       - name: flight-board
-        image: image-registry.openshift-image-registry.svc:5000/cp4i/flightboard:latest
+        image: image-registry.openshift-image-registry.svc:5000/$namespace/flightboard:latest
         env:
         - name: KAFKA_REST_URL
-          value: "http://ademo-es-ibm-es-recapi-external.cp4i.svc.cluster.local:8080/topics"
+          value: "http://ademo-es-ibm-es-recapi-external.$namespace.svc.cluster.local:8080/topics"
         - name: KAFKA_TOPIC
           value: "flight-delays"
         securityContext:
