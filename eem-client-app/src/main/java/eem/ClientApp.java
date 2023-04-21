@@ -80,9 +80,7 @@ public class ClientApp {
             {
             	System.out.println("");
             	System.out.println("#########################################################");
-            	System.out.println("Your flight "+flightNumber+" has been delayed by "+flightDetails.get("delay").getAsInt()+" minutes.");
-            	System.out.println("You can eat at ACME Restaurant and get a 10% discount!");
-            	System.out.println("Would you like to book a table before the others on your plane take them all?");
+            	System.out.println("Alert: Flight "+flightNumber+" has been delayed by "+flightDetails.get("delay").getAsInt()+" minutes.");
             	System.out.println("#########################################################");
             	System.out.println("");
             }
