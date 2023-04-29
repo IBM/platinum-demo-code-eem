@@ -1,0 +1,107 @@
+# © Copyright IBM Corporation 2022
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+swagger: '2.0'
+info:
+  title: Flight API
+  x-ibm-name: flight-api
+  version: 1.0.0
+x-ibm-configuration:
+  cors:
+    enabled: true
+  gateway: datapower-api-gateway
+  type: rest
+  phase: realized
+  enforced: true
+  testable: true
+  assembly:
+    execute:
+      - invoke:
+          title: invoke
+          version: 2.0.0
+          verb: keep
+          target-url: $(target-url)/$(api.root)$(api.operation.path)
+          follow-redirects: false
+          timeout: 60
+          parameter-control:
+            type: blocklist
+            values: []
+          header-control:
+            type: blocklist
+            values: []
+          inject-proxy-headers: true
+          persistent-connection: true
+          backend-type: json
+          cache-response: no-cache
+    finally: []
+  properties:
+    target-url:
+      value: http://flight-board:9080
+      description: The URL of the target service
+      encoded: false
+  activity-log:
+    enabled: true
+    success-content: activity
+    error-content: payload
+basePath: /FlightBoard/flightboard
+paths:
+  /flights:
+    parameters: []
+    get:
+      responses:
+        '200':
+          description: success
+          schema:
+            $ref: '#/definitions/Flights'
+      summary: Returns a list of all the scheduled flights
+securityDefinitions:
+  clientID:
+    type: apiKey
+    in: header
+    name: X-IBM-Client-Id
+security:
+  - clientID: []
+schemes:
+  - https
+definitions:
+  Flights:
+    type: array
+    items:
+      $ref: '#/definitions/Flight'
+  Flight:
+    type: object
+    properties:
+      delay:
+        type: number
+      destination:
+        type: string
+      destinationCode:
+        type: string
+      estimatedDepartureTime:
+        type: string
+      id:
+        type: string
+      number:
+        type: string
+      origin:
+        type: string
+      originCode:
+        type: string
+      scheduledArrivalDate:
+        type: string
+      scheduledArrivalTime:
+        type: string
+      scheduledDepartureDate:
+        type: string
+      scheduledDepartureTime:
+        type: string
