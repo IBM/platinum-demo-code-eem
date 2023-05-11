@@ -32,7 +32,7 @@ line_separator () {
   echo "####################### $1 #######################"
 }
 
-namespace=$1
+namespace=${1:-"cp4i"}
 export GATEWAY_ENDPOINT=$(oc get eventgatewaycluster ademo-egw -o jsonpath='{..endpoints[?(@.name == "eventGateway")].uri}')
 export KAFKA_CLIENT_ID=$2
 export GATEWAY_USERNAME=$3

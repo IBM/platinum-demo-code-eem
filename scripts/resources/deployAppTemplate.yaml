@@ -71,4 +71,7 @@ spec:
     weight: 100
   port:
     targetPort: 9080
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: None
   wildcardPolicy: None

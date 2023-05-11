@@ -17,8 +17,9 @@ line_separator () {
   echo "####################### $1 #######################"
 }
 
-NAMESPACE=$1
+NAMESPACE=${1:-"cp4i"}
 API_CONNECT_CLUSTER_NAME=ademo
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 if [ -z $NAMESPACE ]
 then
@@ -29,24 +30,15 @@ fi
 oc new-project $NAMESPACE 2> /dev/null
 oc project $NAMESPACE
 
-echo ""
-line_separator "START - VERIFY API CONNECT CONFIGURED"
-echo "Checking that API Connect is installed and ready...."
-API_INSTALLED=$(oc get apiconnectcluster $API_CONNECT_CLUSTER_NAME -o=jsonpath={'..phase'})
-if [[ $API_INSTALLED == "Ready" ]]
-then
-  echo "API Connect found and ready"
-else
-  echo "ERROR: API Connect status was $API_INSTALLED"
-  echo "Please verify that you have installed and configured API Connect"
-  exit 1
-fi
-line_separator "SUCCESS - VERIFY API CONNECT CONFIGURED"
+./install-operators.sh
 
 echo ""
-line_separator "START - UPDATING API CONNECT CLUSTER WITH EVENT MANAGEMENT"
+line_separator "START - INSTALLING API CONNECT"
 
-oc patch apiconnectcluster $API_CONNECT_CLUSTER_NAME -n $NAMESPACE --patch-file resources/deltaAPIConnectCluster.yaml --type=merge
+cat $SCRIPT_DIR/resources/apic-cluster.yaml_template |
+  sed "s#{{NAMESPACE}}#$NAMESPACE#g;" > $SCRIPT_DIR/resources/apic-cluster.yaml
+
+oc apply -f resources/apic-cluster.yaml
 sleep 30
 
 END=$((SECONDS+3600))
@@ -54,13 +46,13 @@ EVENT_MANAGEMENT=FAILED
 
 while [ $SECONDS -lt $END ]; do
     API_PHASE=$(oc get apiconnectcluster $API_CONNECT_CLUSTER_NAME -o=jsonpath={'..phase'})
-    if [[ $API_INSTALLED == "Ready" ]]
+    if [[ $API_PHASE == "Ready" ]]
     then
-      echo "Event Management available"
+      echo "API Connect available"
       EVENT_MANAGEMENT=SUCCESS
       break
     else
-      echo "Waiting for Event Management to be available"
+      echo "Waiting for API Connect to be available"
       sleep 60
     fi
 done
@@ -69,11 +61,11 @@ if [[ $EVENT_MANAGEMENT == "SUCCESS" ]]
 then
   echo "SUCCESS"
 else
-  echo "ERROR: Event Management failed to install after 60 minutes"
+  echo "ERROR: API Connect failed to install after 60 minutes"
   exit 1
 fi
 
-line_separator "SUCCESS - UPDATING API CONNECT CLUSTER WITH EVENT MANAGEMENT"
+line_separator "SUCCESS - INSTALLING API CONNECT"
 
 echo ""
 line_separator "START - INSTALLING IBM EVENT STREAMS"
@@ -97,10 +89,12 @@ done
 
 line_separator "SUCCESS - IBM EVENT STREAMS CREATED"
 
+./configure-apiconnect.sh -n $NAMESPACE -r $API_CONNECT_CLUSTER_NAME
+
 echo ""
 echo ""
 line_separator "User Interfaces"
-PLATFORM_NAVIGATOR_URL=$(oc get route cp4i-navigator-pn -o jsonpath={.spec.host})
+PLATFORM_NAVIGATOR_URL=$(oc get route platform-navigator-pn -o jsonpath={'.spec.host'})
 echo "Platform Navigator URL: https://$PLATFORM_NAVIGATOR_URL"
 IBM_EVENT_STREAM_UI=$(oc get EventStreams ademo-es -o jsonpath={'.status.routes.ui'})
 echo "Event Streams UI: https://$IBM_EVENT_STREAM_UI"

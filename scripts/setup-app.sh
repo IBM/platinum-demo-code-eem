@@ -32,7 +32,7 @@ line_separator () {
   echo "####################### $1 #######################"
 }
 
-export namespace=$1
+namespace=${1:-"cp4i"}
 
 if [ -z $namespace ]
 then
@@ -85,7 +85,7 @@ echo
 echo
 echo Please use the following URLs to access the app.  Please note the use of http and NOT https.
 echo
-echo FlightBoard: http://$appUrl/FlightBoard
-echo FlightBoard Manager: http://$appUrl/FlightBoard/manage-flights.html
+echo FlightBoard: https://$appUrl/FlightBoard
+echo FlightBoard Manager: https://$appUrl/FlightBoard/manage-flights.html
 
 exit 0

@@ -70,3 +70,7 @@ spec:
     - protocol: TCP
       port: 9080
       targetPort: 9080
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: None
+

@@ -49,7 +49,7 @@ echo "Platform Navigator URL: https://$PLATFORM_NAVIGATOR_URL"
 IBM_EVENT_STREAM_UI=$(oc get EventStreams ademo-es -o jsonpath={'.status.routes.ui'})
 echo "Event Streams UI: https://$IBM_EVENT_STREAM_UI"
 IBM_PORTAL_UI=$(oc get route ademo-ptl-portal-web -o jsonpath={.spec.host})
-echo "Developer Portal UI: https://$IBM_PORTAL_UI/ddd-demo-test/sandbox"
+echo "Developer Portal UI: https://$IBM_PORTAL_UI/ibm-demo/sandbox"
 echo ""
 echo ""
 line_separator "Component URLs"
@@ -63,7 +63,7 @@ appUrl=$(oc get routes flight-board -o jsonpath={..spec.host} -n $namespace)
 line_separator "Flight Board URLs"
 echo Please use the following URLs to access the app.  Please note the use of http and NOT https.
 echo
-echo FlightBoard: http://$appUrl/FlightBoard
-echo FlightBoard Manager: http://$appUrl/FlightBoard/manage-flights.html
+echo FlightBoard: https://$appUrl/FlightBoard
+echo FlightBoard Manager: https://$appUrl/FlightBoard/manage-flights.html
 echo
 echo
