@@ -13,14 +13,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-EVENT_GATEWAY_URL=$(oc get eventgatewaycluster ademo-egw -o jsonpath='{..endpoints[?(@.name == "eventGateway")].uri}')
-EVENT_GATEWAY_HOST=$(oc get eventgatewaycluster ademo-egw -o jsonpath='{..endpoints[?(@.name == "eventGateway")].uri}' | cut -d: -f1)
+EVENT_GATEWAY_HOST=$(oc get eventgateway ademo-event-gw -o jsonpath='{..endpoints[?(@.name == "external-route-https")].uri}' | cut -d'/' -f3)
 mv eem.crt eem.crt.original 2> /dev/null
 mv eem.jks eem.jks.original 2> /dev/null
 rm eem.crt eem.jks 2> /dev/null
 
 echo Downloading certificate
-openssl s_client -connect $EVENT_GATEWAY_URL -servername $EVENT_GATEWAY_HOST </dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > eem.crt
+openssl s_client -connect $EVENT_GATEWAY_HOST:443 -servername $EVENT_GATEWAY_HOST </dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > eem.crt
 
 echo
 echo Creating keystore

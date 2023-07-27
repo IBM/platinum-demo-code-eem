@@ -1,0 +1,37 @@
+apiVersion: events.ibm.com/v1beta1
+kind: EventEndpointManagement
+metadata:
+  name: ademo-eem
+  namespace: {{NAMESPACE}}
+spec:
+  license:
+    accept: true
+    license: L-YBXJ-ADJNSM
+    metric: VIRTUAL_PROCESSOR_CORE
+    use: CloudPakForIntegrationNonProduction
+  manager:
+    authConfig:
+      authType: LOCAL
+    apic:
+      jwks:
+        endpoint: {{JWKS_ENDPOINT}}
+    storage:
+      type: persistent-claim
+      storageClassName: ocs-storagecluster-ceph-rbd
+      deleteClaim: true
+    template:
+      pod:
+        spec:
+          containers:
+            - name: manager
+              resources:
+                requests:
+                  cpu: '0.25'
+                  memory: 256Mi
+                limits:
+                  cpu: '0.5'
+                  memory: 512Mi
+    tls:
+      trustedCertificates:
+        - certificate: apic-platform.crt
+          secretName: apic-platform-cert

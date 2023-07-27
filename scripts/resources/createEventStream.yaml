@@ -22,6 +22,7 @@ spec:
   collector: {}
   license:
     accept: true
+    license: L-YBXJ-ADJNSM
     use: CloudPakForIntegrationNonProduction
   requestIbmServices:
     iam: false
@@ -66,4 +67,4 @@ spec:
       replicas: 1
       storage:
         type: ephemeral
-  version: "11.0"
+  version: "11.2.2"

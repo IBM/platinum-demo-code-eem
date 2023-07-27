@@ -15,3 +15,12 @@ eem-client-app/target/maven-archiver
 eem-client-app/target/generated-sources
 eem-client-app/target/classes
 eem-client-app/target/archive-tmp
+scripts/certificate.crt
+scripts/curl.out
+scripts/eem.crt
+scripts/eem.crt.original
+scripts/eem.jks
+scripts/eem.jks.original
+scripts/resources/apic-cluster.yaml
+scripts/resources/deployApp.yaml
+scripts/resources/deployClientApp.yaml

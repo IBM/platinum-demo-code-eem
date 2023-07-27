@@ -33,7 +33,7 @@ line_separator () {
 }
 
 namespace=${1:-"cp4i"}
-export GATEWAY_ENDPOINT=$(oc get eventgatewaycluster ademo-egw -o jsonpath='{..endpoints[?(@.name == "eventGateway")].uri}')
+export GATEWAY_ENDPOINT=$(oc get eventgateway ademo-event-gw -o jsonpath='{..endpoints[?(@.name == "external-route-https")].uri}' | cut -d'/' -f3):443
 export KAFKA_CLIENT_ID=$2
 export GATEWAY_USERNAME=$3
 export GATEWAY_PASSWORD=$4
