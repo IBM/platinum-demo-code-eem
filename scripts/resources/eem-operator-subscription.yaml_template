@@ -15,11 +15,11 @@
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: ibm-apiconnect
+  name: ibm-eventendpointmanagement
   namespace: {{NAMESPACE}}
 spec:
-  channel: v5.0
+  channel: v11.0
   installPlanApproval: Automatic
-  name: ibm-apiconnect 
+  name: ibm-eventendpointmanagement 
   source: ibm-operator-catalog 
   sourceNamespace: openshift-marketplace

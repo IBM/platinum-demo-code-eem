@@ -53,10 +53,10 @@ echo "Developer Portal UI: https://$IBM_PORTAL_UI/ibm-demo/sandbox"
 echo ""
 echo ""
 line_separator "Component URLs"
-EVENT_GATEWAY_URL=$(oc get eventgatewaycluster ademo-egw -o jsonpath='{..endpoints[?(@.name == "eventGateway")].uri}')
+EVENT_GATEWAY_URL=$(oc get eventgateway ademo-event-gw -o jsonpath='{..endpoints[?(@.name == "external-route-https")].uri}' | cut -d'/' -f3):443
 echo "Event API endpoint base: $EVENT_GATEWAY_URL"
-EVENT_GATEWAY_MANAGER=$(oc get eventgatewaycluster ademo-egw -o jsonpath='{..endpoints[?(@.name == "eventGatewayManager")].uri}')
-echo "Event Management endpoint: $EVENT_GATEWAY_MANAGER"
+EEM_UI=$(oc get eem ademo-eem -o=jsonpath='{.status.endpoints[?(@.name=="ui")].uri}')
+echo "Event Endpoint Management UI: $EEM_UI"
 echo ""
 echo ""
 appUrl=$(oc get routes flight-board -o jsonpath={..spec.host} -n $namespace)

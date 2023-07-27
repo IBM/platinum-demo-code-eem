@@ -63,6 +63,7 @@ oc apply -f resources/AppConfigMap.yaml
 
 # Create flight board image
 echo Creating flight board image
+export namespace=$namespace
 oc create is flightboard 2> /dev/null
 oc apply -f resources/createFlightBoardImage.yaml
 oc start-build build-flight-board-image

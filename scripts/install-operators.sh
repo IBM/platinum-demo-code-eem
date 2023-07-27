@@ -87,4 +87,15 @@ rm $SCRIPT_DIR/resources/es-operator-subscription.yaml
 
 wait_for_operator_start ibm-eventstreams  $namespace
 
+
+cat $SCRIPT_DIR/resources/eem-operator-subscription.yaml_template |
+  sed "s#{{NAMESPACE}}#$namespace#g;" > $SCRIPT_DIR/resources/eem-operator-subscription.yaml
+
+oc apply -f $SCRIPT_DIR/resources/eem-operator-subscription.yaml
+
+rm $SCRIPT_DIR/resources/eem-operator-subscription.yaml
+
+wait_for_operator_start ibm-eventendpointmanagement  $namespace
+
+
 echo "Completed installation of API Connect and Event Streams operators successfully"

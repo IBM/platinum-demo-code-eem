@@ -1,0 +1,27 @@
+apiVersion: events.ibm.com/v1beta1
+kind: EventGateway
+metadata:
+  name: ademo-event-gw
+spec:
+  license:
+    accept: true
+    license: L-HRZF-DWHH7A
+    metric: VIRTUAL_PROCESSOR_CORE
+    use: EventAutomationNonProduction
+  managerEndpoint: '{{EEM_GATEWAY_URL}}'
+  gatewayGroupName: 'production'
+  gatewayID: '1'
+  tls:
+    caSecretName: ademo-eem-ibm-eem-manager-ca
+  template:
+    pod:
+      spec:
+        containers:
+          - name: egw
+            resources:
+              requests:
+                cpu: '0.5'
+                memory: 512Mi
+              limits:
+                cpu: '1'
+                memory: 1Gi
