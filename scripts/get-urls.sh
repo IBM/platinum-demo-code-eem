@@ -44,7 +44,7 @@ fi
 
 
 line_separator "Cloud Pak for Integration User Interfaces"
-PLATFORM_NAVIGATOR_URL=$(oc get route $namespace-navigator-pn -o jsonpath={.spec.host})
+PLATFORM_NAVIGATOR_URL=$(oc get route platform-navigator-pn -o jsonpath={.spec.host})
 echo "Platform Navigator URL: https://$PLATFORM_NAVIGATOR_URL"
 IBM_EVENT_STREAM_UI=$(oc get EventStreams ademo-es -o jsonpath={'.status.routes.ui'})
 echo "Event Streams UI: https://$IBM_EVENT_STREAM_UI"
