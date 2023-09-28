@@ -64,9 +64,10 @@ public class ClientApp {
     props.put(SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG, "password");
     props.put(SslConfigs.SSL_TRUSTSTORE_TYPE_CONFIG, "JKS");
     props.put("ssl.endpoint.identification.algorithm", "");
+    KafkaConsumer consumer =null;
     try
     {
-      KafkaConsumer consumer = new KafkaConsumer<String, byte[]>(props);
+      consumer = new KafkaConsumer<String, byte[]>(props);
       consumer.subscribe(Collections.singletonList("flight-delays"));
       while(true) {
 
@@ -89,8 +90,11 @@ public class ClientApp {
     } catch (Exception e) {
       System.out.println("Exception occurred in application code:" + e.getMessage());
       e.printStackTrace();
-      consumer.close();
       System.out.flush();
+      if(consumer!=null)
+      {
+        consumer.close();
+      }
       System.exit(1);
     }
   }
