@@ -1,7 +1,7 @@
 #!/bin/bash
 #******************************************************************************
 # Licensed Materials - Property of IBM
-# (c) Copyright IBM Corporation 2023. All Rights Reserved.
+# (c) Copyright IBM Corporation 2023, 2024. All Rights Reserved.
 #
 # Note to U.S. Government Users Restricted Rights:
 # Use, duplication or disclosure restricted by GSA ADP Schedule
@@ -165,8 +165,8 @@ function add_cs_admin_user() {
   member_json='{
     "name": "cs-admin",
     "user": {
-      "identity_provider": "common-services",
-      "url": "https://'${API_EP}'/api/user-registries/admin/common-services/users/admin"
+      "identity_provider": "integration-keycloak",
+      "url": "https://'${API_EP}'/api/user-registries/admin/integration-keycloak/users/integration-admin"
     },
     "role_urls": [
       "'${administrator_role_url}'"
@@ -199,7 +199,8 @@ function add_catalog() {
   $DEBUG && echo "[DEBUG] $(echo ${response} | jq .)"
 
   catalogId=`echo ${response} | jq -r '.url' | sed "s/^.*$NAMESPACE\/$RELEASE_NAME//"`
-  catalog_url="https://${API_EP}${catalogId}"
+  catalog_url="${catalogId}"
+
   $DEBUG && echo "[DEBUG] $(echo catalog_url=${catalog_url})"
 
   if [[ "${catalogId}" == "null" ]]; then
@@ -212,7 +213,7 @@ function add_catalog() {
 
     $DEBUG && echo "[DEBUG] $(echo ${response} | jq .)"
     catalogId=`echo ${response} | jq -r '.url' | sed "s/^.*$NAMESPACE\/$RELEASE_NAME//"`
-    catalog_url="https://${API_EP}${catalogId}"
+    catalog_url="${catalogId}"
     $DEBUG && echo "[DEBUG] $(echo catalog_url=${catalog_url})"
   fi
 
@@ -346,7 +347,7 @@ provider_token="${RESULT}"
 
 # Main org/catalog
 create_org "$admin_token" "${ORG_NAME}" "${MAIN_PORG_TITLE}" "${owner_url}"
-main_porg_url="https://${API_EP}${RESULT}"
+main_porg_url="${RESULT}"
 $DEBUG && echo "[DEBUG] $(echo token=${provider_token} org_name=${ORG_NAME} porg_url=${main_porg_url})"
 add_cs_admin_user "${provider_token}" "${ORG_NAME}" "${main_porg_url}"
 add_catalog "${provider_token}" "${ORG_NAME}" "${main_porg_url}" "${MAIN_CATALOG}" "${MAIN_CATALOG_TITLE}"

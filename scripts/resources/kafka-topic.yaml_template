@@ -1,4 +1,4 @@
-# © Copyright IBM Corporation 2023, 2024
+# © Copyright IBM Corporation 2024
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,23 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-apiVersion: apiconnect.ibm.com/v1beta1
-kind: APIConnectCluster
+apiVersion: eventstreams.ibm.com/v1beta2
+kind: KafkaTopic
 metadata:
-  name: ademo
+  name: flightdelays
   namespace: {{NAMESPACE}}
   labels:
-    app.kubernetes.io/instance: apiconnect
-    app.kubernetes.io/managed-by: ibm-apiconnect
-    app.kubernetes.io/name: apiconnect-production
-  annotations: 
-    apiconnect-operator/backups-not-configured: "true"
+    eventstreams.ibm.com/cluster: ademo-es
 spec:
-  gateway:
-    replicaCount: 1
-  license:
-    accept: true
-    use: nonproduction
-    license: L-MMBZ-295QZQ
-  profile: n1xc10.m48
-  version: "10.0.7"
+  config:
+    min.insync.replicas: '1'
+    retention.bytes: '302428800'
+  partitions: 3
+  replicas: 3
+  topicName: flight-delays

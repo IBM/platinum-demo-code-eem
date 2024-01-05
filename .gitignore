@@ -24,3 +24,5 @@ scripts/eem.jks.original
 scripts/resources/apic-cluster.yaml
 scripts/resources/deployApp.yaml
 scripts/resources/deployClientApp.yaml
+scripts/resources/kafka-topic.yaml
+scripts/resources/platform-nav.yaml

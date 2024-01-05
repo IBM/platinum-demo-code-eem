@@ -1,7 +1,16 @@
 #!/bin/bash
+#******************************************************************************
+# Licensed Materials - Property of IBM
+# (c) Copyright IBM Corporation 2023, 2024. All Rights Reserved.
+#
+# Note to U.S. Government Users Restricted Rights:
+# Use, duplication or disclosure restricted by GSA ADP Schedule
+# Contract with IBM Corp.
+#******************************************************************************
 
 namespace=${1:-"cp4i"}
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+INSTALL_CP4I=${2:-true}
 
 function wait_for_pipeline_types () {
     echo "Checking for pipeline types to be created...."
@@ -62,6 +71,31 @@ function wait_for_operator_start() {
 }
 
 oc new-project $namespace
+
+if [ "$INSTALL_CP4I" = true ] ; then
+
+    oc apply -f $SCRIPT_DIR/resources/ibm-catalog-source.yaml
+    oc apply -f $SCRIPT_DIR/resources/operator-group.yaml
+    
+    cat $SCRIPT_DIR/resources/platform-nav-operator-subscription.yaml_template |
+      sed "s#{{NAMESPACE}}#$namespace#g;" > $SCRIPT_DIR/resources/platform-nav-operator-subscription.yaml
+    oc apply -f $SCRIPT_DIR/resources/platform-nav-operator-subscription.yaml
+    rm $SCRIPT_DIR/resources/platform-nav-operator-subscription.yaml
+    wait_for_operator_start ibm-integration-platform-navigator $namespace
+
+    cat $SCRIPT_DIR/resources/cert-manager.yaml_template |
+      sed "s#{{NAMESPACE}}#$namespace#g;" > $SCRIPT_DIR/resources/cert-manager.yaml
+    oc apply -f $SCRIPT_DIR/resources/cert-manager.yaml
+    rm $SCRIPT_DIR/resources/cert-manager.yaml
+    wait_for_operator_start cert-manager-operator openshift-operators
+
+    cat $SCRIPT_DIR/resources/ibm-common-services.yaml_template |
+      sed "s#{{NAMESPACE}}#$namespace#g;" > $SCRIPT_DIR/resources/ibm-common-services.yaml
+    oc apply -f $SCRIPT_DIR/resources/ibm-common-services.yaml
+    rm $SCRIPT_DIR/resources/ibm-common-services.yaml
+    wait_for_operator_start ibm-common-service-operator $namespace
+
+fi
 
 oc apply -f $SCRIPT_DIR/resources/pipeline-operator-subscription.yaml
 

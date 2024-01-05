@@ -1,5 +1,5 @@
 #!/bin/bash
-# © Copyright IBM Corporation 2023
+# © Copyright IBM Corporation 2023, 2024
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ metadata:
   name: ibm-apiconnect
   namespace: {{NAMESPACE}}
 spec:
-  channel: v5.0
+  channel: v5.1
   installPlanApproval: Automatic
   name: ibm-apiconnect 
   source: ibm-operator-catalog 

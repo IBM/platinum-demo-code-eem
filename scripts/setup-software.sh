@@ -1,5 +1,5 @@
 #!/bin/bash
-# © Copyright IBM Corporation 2022
+# © Copyright IBM Corporation 2022, 2024
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@ line_separator () {
 NAMESPACE=${1:-"cp4i"}
 API_CONNECT_CLUSTER_NAME=ademo
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+BLOCK_STORAGE=${2:-"ocs-storagecluster-ceph-rbd"}
+INSTALL_CP4I=${3:-true}
 
 if [ -z $NAMESPACE ]
 then
@@ -30,7 +32,47 @@ fi
 oc new-project $NAMESPACE 2> /dev/null
 oc project $NAMESPACE
 
+if [ "$INSTALL_CP4I" = true ] ; then
+  kubectl patch storageclass $BLOCK_STORAGE -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+fi
+
 ./install-operators.sh
+
+
+if [ "$INSTALL_CP4I" = true ] ; then
+  echo ""
+  line_separator "START - INSTALLING PLATFORM NAVIGATOR"
+  cat $SCRIPT_DIR/resources/platform-nav.yaml_template |
+  sed "s#{{NAMESPACE}}#$NAMESPACE#g;" > $SCRIPT_DIR/resources/platform-nav.yaml
+
+  oc apply -f resources/platform-nav.yaml
+  sleep 30
+
+  END=$((SECONDS+3600))
+  PLATFORM_NAV=FAILED
+
+  while [ $SECONDS -lt $END ]; do
+    PLATFORM_NAV_PHASE=$(oc get platformnavigator platform-navigator -o=jsonpath={'.status.conditions[].type'})
+    if [[ $PLATFORM_NAV_PHASE == "Ready" ]]
+    then
+      echo "Platform Navigator available"
+      PLATFORM_NAV=SUCCESS
+      break
+    else
+      echo "Waiting for Platform Navigator to be available"
+      sleep 60
+    fi
+  done
+
+  if [[ $PLATFORM_NAV == "SUCCESS" ]]
+  then
+    echo "SUCCESS"
+  else
+    echo "ERROR: Platform Navigator failed to install after 60 minutes"
+    exit 1
+  fi
+  line_separator "SUCCESS - INSTALLING PLATFORM NAVIGATOR"
+fi
 
 echo ""
 line_separator "START - INSTALLING API CONNECT"
@@ -83,9 +125,15 @@ while [ $SECONDS -lt $END ]; do
       break
     else
       echo "Waiting for Event Stream to be available"
+      oc apply -f resources/kafka-users.yaml
       sleep 60
     fi
 done
+
+cat $SCRIPT_DIR/resources/kafka-topic.yaml_template |
+sed "s#{{NAMESPACE}}#$NAMESPACE#g;" > $SCRIPT_DIR/resources/kafka-topic.yaml
+
+oc apply -f $SCRIPT_DIR/resources/kafka-topic.yaml
 
 line_separator "SUCCESS - IBM EVENT STREAMS CREATED"
 
@@ -175,11 +223,16 @@ fi
 ./configure-eventmanagement.sh $NAMESPACE
 ./configure-apiconnect.sh -n $NAMESPACE -r $API_CONNECT_CLUSTER_NAME
 ./configure-eventgateway.sh $NAMESPACE
+
+PLATFORM_NAV_USERNAME=$(oc get secret integration-admin-initial-temporary-credentials -o=jsonpath={.data.username} | base64 -d)
+PLATFORM_NAV_PASSWORD=$(oc get secret integration-admin-initial-temporary-credentials -o=jsonpath={.data.password} | base64 -d)
 echo ""
 echo ""
 line_separator "User Interfaces"
 PLATFORM_NAVIGATOR_URL=$(oc get route platform-navigator-pn -o jsonpath={'.spec.host'})
 echo "Platform Navigator URL: https://$PLATFORM_NAVIGATOR_URL"
+echo "Username: $PLATFORM_NAV_USERNAME"
+echo "Password: $PLATFORM_NAV_PASSWORD"
 IBM_EVENT_STREAM_UI=$(oc get EventStreams ademo-es -o jsonpath={'.status.routes.ui'})
 echo "Event Streams UI: https://$IBM_EVENT_STREAM_UI"
 EEM_UI=$(oc get eem ademo-eem -o=jsonpath='{.status.endpoints[?(@.name=="ui")].uri}')

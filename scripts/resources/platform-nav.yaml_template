@@ -1,4 +1,4 @@
-# © Copyright IBM Corporation 2023, 2024
+# © Copyright IBM Corporation 2024
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,23 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-apiVersion: apiconnect.ibm.com/v1beta1
-kind: APIConnectCluster
+apiVersion: integration.ibm.com/v1beta1
+kind: PlatformNavigator
 metadata:
-  name: ademo
-  namespace: {{NAMESPACE}}
+  name: platform-navigator
+  namespace: cp4i
   labels:
-    app.kubernetes.io/instance: apiconnect
-    app.kubernetes.io/managed-by: ibm-apiconnect
-    app.kubernetes.io/name: apiconnect-production
-  annotations: 
-    apiconnect-operator/backups-not-configured: "true"
+    backup.integration.ibm.com/component: platformnavigator        
 spec:
-  gateway:
-    replicaCount: 1
   license:
     accept: true
-    use: nonproduction
-    license: L-MMBZ-295QZQ
-  profile: n1xc10.m48
-  version: "10.0.7"
+    license: L-VTPK-22YZPK
+  replicas: 1
+  version: 2023.4.1
