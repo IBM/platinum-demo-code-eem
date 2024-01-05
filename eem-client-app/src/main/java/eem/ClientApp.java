@@ -63,17 +63,18 @@ public class ClientApp {
     //props.put(SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG, "c://temp//eem.jks");
     props.put(SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG, "password");
     props.put(SslConfigs.SSL_TRUSTSTORE_TYPE_CONFIG, "JKS");
-    props.put("ssl.endpoint.identification.algorithm", "");
+    //props.put("ssl.endpoint.identification.algorithm", "");
+
     KafkaConsumer consumer =null;
     try
     {
-      consumer = new KafkaConsumer<String, byte[]>(props);
+      consumer = new KafkaConsumer<String, String>(props);
       consumer.subscribe(Collections.singletonList("flight-delays"));
       while(true) {
 
-        ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofSeconds(1));
-        for (ConsumerRecord<String, byte[]> record : records) {
-        	byte[] value = record.value();
+        ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(1));
+        for (ConsumerRecord<String, String> record : records) {
+        	String value = record.value();
             JsonElement jsonElement = JsonParser.parseString(new String(value));
             JsonObject flightDetails = jsonElement.getAsJsonObject();
             String eventFlightId = flightDetails.get("id").getAsString();
