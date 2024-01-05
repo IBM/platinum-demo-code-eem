@@ -64,7 +64,7 @@ public class ClientApp {
     props.put(SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG, "password");
     props.put(SslConfigs.SSL_TRUSTSTORE_TYPE_CONFIG, "JKS");
     //props.put("ssl.endpoint.identification.algorithm", "");
-
+    System.out.println("Version 1.0.1");
     KafkaConsumer consumer =null;
     try
     {
