@@ -33,7 +33,7 @@ oc new-project $NAMESPACE 2> /dev/null
 oc project $NAMESPACE
 
 if [ "$INSTALL_CP4I" = true ] ; then
-  kubectl patch storageclass $BLOCK_STORAGE -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+  oc patch storageclass $BLOCK_STORAGE -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 fi
 
 ./install-operators.sh
@@ -150,7 +150,7 @@ APICONNECT_PLATFORM_API_HOSTNAME=$(echo "$APICONNECT_PLATFORM_API" | awk -F/ '{p
 echo "Using $APICONNECT_PLATFORM_API_HOSTNAME to retrieve certificate"
 echo | openssl s_client -connect $APICONNECT_PLATFORM_API_HOSTNAME:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > certificate.crt
 
-kubectl create secret generic apic-platform-cert --from-file=apic-platform.crt=certificate.crt
+oc create secret generic apic-platform-cert --from-file=apic-platform.crt=certificate.crt
 
 cat $SCRIPT_DIR/resources/createEventEndpointManager.yaml_template |
   sed "s#{{NAMESPACE}}#$NAMESPACE#g;" | 
