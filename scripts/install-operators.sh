@@ -44,10 +44,10 @@ function wait_for_operator_start() {
     time=0
     currentCSV=""
     while [[ -z "$currentCSV" ]]; do
-      currentCSV=$(oc get subscriptions -n ${installedNamespace} ${subscriptionName} -o jsonpath={.status.currentCSV} 2>/dev/null)
+      currentCSV=$(oc get sub -n ${installedNamespace} ${subscriptionName} -o jsonpath={.status.currentCSV} 2>/dev/null)
       ((time = time + $wait_time))
       sleep $wait_time
-      if [ $time -ge 300 ]; then
+      if [ $time -ge 240 ]; then
         echo "ERROR: Failed after waiting for 5 minutes"
         exit 1
       fi
@@ -58,8 +58,8 @@ function wait_for_operator_start() {
     until [[ "$phase" == "Succeeded" ]]; do
       phase=$(oc get csv -n ${installedNamespace} ${currentCSV} -o jsonpath={.status.phase} 2>/dev/null)
       sleep $wait_time
-      if [ $time -ge 300 ]; then
-        echo "ERROR: Failed after waiting for 5 minutes"
+      if [ $time -ge 600 ]; then
+        echo "ERROR: Failed after waiting for 10 minutes"
         exit 1
       fi
       if [ $time -ge 240 ]; then
@@ -71,35 +71,39 @@ function wait_for_operator_start() {
 }
 
 oc new-project $namespace
+echo "Create the namespace $namespace"
 
 if [ "$INSTALL_CP4I" = true ] ; then
-
+    echo "Apply IBM Catalog..."
     oc apply -f $SCRIPT_DIR/resources/ibm-catalog-source.yaml
     oc apply -f $SCRIPT_DIR/resources/operator-group.yaml
-    
+
+    echo "Install IBM Common Services..."
+    cat $SCRIPT_DIR/resources/ibm-common-services.yaml_template |
+      sed "s#{{NAMESPACE}}#$namespace#g;" > $SCRIPT_DIR/resources/ibm-common-services.yaml
+    oc apply -f $SCRIPT_DIR/resources/ibm-common-services.yaml
+    rm $SCRIPT_DIR/resources/ibm-common-services.yaml
+    wait_for_operator_start ibm-common-service-operator $namespace
+  
+    echo "Install Cert Manager..."
+    cat $SCRIPT_DIR/resources/cert-manager-redhat.yaml_template |
+      sed "s#{{NAMESPACE}}#$namespace#g;" > $SCRIPT_DIR/resources/cert-manager-redhat.yaml
+    oc apply -f $SCRIPT_DIR/resources/cert-manager-redhat.yaml
+    rm $SCRIPT_DIR/resources/cert-manager-redhat.yaml
+    wait_for_operator_start openshift-cert-manager-operator cert-manager-operator
+
+    echo "Install Platform Nav..."
     cat $SCRIPT_DIR/resources/platform-nav-operator-subscription.yaml_template |
       sed "s#{{NAMESPACE}}#$namespace#g;" > $SCRIPT_DIR/resources/platform-nav-operator-subscription.yaml
     oc apply -f $SCRIPT_DIR/resources/platform-nav-operator-subscription.yaml
     rm $SCRIPT_DIR/resources/platform-nav-operator-subscription.yaml
     wait_for_operator_start ibm-integration-platform-navigator $namespace
 
-    cat $SCRIPT_DIR/resources/cert-manager.yaml_template |
-      sed "s#{{NAMESPACE}}#$namespace#g;" > $SCRIPT_DIR/resources/cert-manager.yaml
-    oc apply -f $SCRIPT_DIR/resources/cert-manager.yaml
-    rm $SCRIPT_DIR/resources/cert-manager.yaml
-    wait_for_operator_start cert-manager-operator openshift-operators
-
-    cat $SCRIPT_DIR/resources/ibm-common-services.yaml_template |
-      sed "s#{{NAMESPACE}}#$namespace#g;" > $SCRIPT_DIR/resources/ibm-common-services.yaml
-    oc apply -f $SCRIPT_DIR/resources/ibm-common-services.yaml
-    rm $SCRIPT_DIR/resources/ibm-common-services.yaml
-    wait_for_operator_start ibm-common-service-operator $namespace
-
 fi
 
-oc apply -f $SCRIPT_DIR/resources/pipeline-operator-subscription.yaml
+#oc apply -f $SCRIPT_DIR/resources/pipeline-operator-subscription.yaml
 
-wait_for_operator_start openshift-pipelines-operator openshift-operators
+# wait_for_operator_start openshift-pipelines-operator openshift-operators
 
 wait_for_pipeline_types 
 
