@@ -29,7 +29,6 @@ then
     exit 1
 fi
 
-
 oc new-project cert-manager-operator
 oc new-project $NAMESPACE 2> /dev/null
 oc project $NAMESPACE
@@ -38,9 +37,7 @@ if [ "$INSTALL_CP4I" = true ] ; then
   oc patch storageclass $BLOCK_STORAGE -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 fi
 
-# in the ocpv we need to patch the registry first
-#./patch-registry.sh
-# install the operators, begin with the foundational services, cert manager and then the platform navigator
+./patch-registry.sh
 ./install-operators.sh
 
 

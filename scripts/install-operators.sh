@@ -47,7 +47,7 @@ function wait_for_operator_start() {
       currentCSV=$(oc get sub -n ${installedNamespace} ${subscriptionName} -o jsonpath={.status.currentCSV} 2>/dev/null)
       ((time = time + $wait_time))
       sleep $wait_time
-      if [ $time -ge 240 ]; then
+      if [ $time -ge 300 ]; then
         echo "ERROR: Failed after waiting for 5 minutes"
         exit 1
       fi
@@ -63,7 +63,7 @@ function wait_for_operator_start() {
         exit 1
       fi
       if [ $time -ge 300 ]; then
-        echo "INFO: Waited over five minutes and the status is $phase"
+        echo "INFO: Waited over five minute and the status is $phase"
         exit 1
       fi
     done
