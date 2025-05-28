@@ -62,8 +62,8 @@ function wait_for_operator_start() {
         echo "ERROR: Failed after waiting for 10 minutes"
         exit 1
       fi
-      if [ $time -ge 240 ]; then
-        echo "INFO: Waited over four minutes and the status is $phase"
+      if [ $time -ge 300 ]; then
+        echo "INFO: Waited over five minutes and the status is $phase"
         exit 1
       fi
     done
