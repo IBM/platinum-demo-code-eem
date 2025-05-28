@@ -19,7 +19,7 @@ metadata:
 spec:
   license:
     accept: true
-    license: L-HRZF-DWHH7A
+    license: L-AUKS-FKVXVL
     metric: VIRTUAL_PROCESSOR_CORE
     use: EventAutomationNonProduction
   manager:
@@ -30,7 +30,7 @@ spec:
         endpoint: {{JWKS_ENDPOINT}}
     storage:
       type: persistent-claim
-      storageClassName: ocs-storagecluster-ceph-rbd
+      storageClassName: ocs-external-storagecluster-ceph-rbd
       deleteClaim: true
     template:
       pod:
