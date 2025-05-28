@@ -18,7 +18,7 @@ metadata:
   name: ibm-apiconnect
   namespace: {{NAMESPACE}}
 spec:
-  channel: v5.1
+  channel: v6.0
   installPlanApproval: Automatic
   name: ibm-apiconnect 
   source: ibm-operator-catalog 

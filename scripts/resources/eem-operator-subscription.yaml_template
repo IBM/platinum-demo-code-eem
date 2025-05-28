@@ -17,7 +17,7 @@ metadata:
   name: ibm-eventendpointmanagement
   namespace: {{NAMESPACE}}
 spec:
-  channel: v11.1
+  channel: v11.5
   installPlanApproval: Automatic
   name: ibm-eventendpointmanagement 
   source: ibm-operator-catalog 

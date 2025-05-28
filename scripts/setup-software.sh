@@ -20,7 +20,7 @@ line_separator () {
 NAMESPACE=${1:-"cp4i"}
 API_CONNECT_CLUSTER_NAME=ademo
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-BLOCK_STORAGE=${2:-"ocs-storagecluster-ceph-rbd"}
+BLOCK_STORAGE=${2:-"ocs-external-storagecluster-ceph-rbd"}
 INSTALL_CP4I=${3:-true}
 
 if [ -z $NAMESPACE ]
@@ -29,6 +29,7 @@ then
     exit 1
 fi
 
+oc new-project ibm-common-services
 oc new-project $NAMESPACE 2> /dev/null
 oc project $NAMESPACE
 

@@ -58,12 +58,12 @@ function wait_for_operator_start() {
     until [[ "$phase" == "Succeeded" ]]; do
       phase=$(oc get csv -n ${installedNamespace} ${currentCSV} -o jsonpath={.status.phase} 2>/dev/null)
       sleep $wait_time
-      if [ $time -ge 600 ]; then
-        echo "ERROR: Failed after waiting for 10 minutes"
+      if [ $time -ge 300 ]; then
+        echo "ERROR: Failed after waiting for 5 minutes"
         exit 1
       fi
-      if [ $time -ge 300 ]; then
-        echo "INFO: Waited over five minute and the status is $phase"
+      if [ $time -ge 240 ]; then
+        echo "INFO: Waited over four minutes and the status is $phase"
         exit 1
       fi
     done

@@ -28,6 +28,6 @@ spec:
   license:
     accept: true
     use: nonproduction
-    license: L-MMBZ-295QZQ
+    license: L-DZZQ-MGVN8V
   profile: n1xc10.m48
-  version: "10.0.7"
+  version: "10.0.8.0"
