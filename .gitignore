@@ -27,3 +27,4 @@ scripts/resources/deployClientApp.yaml
 scripts/resources/kafka-topic.yaml
 scripts/resources/platform-nav.yaml
 .DS_Store
+scripts/remove-finalizer.md
