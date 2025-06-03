@@ -1,5 +1,5 @@
 #!/bin/bash
-# © Copyright IBM Corporation 2023, 2024
+# © Copyright IBM Corporation 2022
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,14 +12,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-apiVersion: operators.coreos.com/v1alpha1
-kind: Subscription
-metadata:
-  name: ibm-apiconnect
-  namespace: {{NAMESPACE}}
-spec:
-  channel: v6.0
-  installPlanApproval: Automatic
-  name: ibm-apiconnect 
-  source: ibm-operator-catalog 
-  sourceNamespace: openshift-marketplace
+
+
+# New Openshifts dont have their image registry configured
+oc patch configs.imageregistry.operator.openshift.io cluster --type merge -p '{"spec":{"managementState":"Managed"}}'
+# set ephemeral storage  
+oc patch configs.imageregistry.operator.openshift.io cluster \
+  --type merge -p '{"spec":{"storage":{"emptyDir":{}}}}'
+# expose repo
+oc patch configs.imageregistry.operator.openshift.io cluster \
+  --type merge -p '{"spec":{"defaultRoute":true}}'
+# verfiy its running 
+oc get pods -n openshift-image-registry

@@ -17,7 +17,7 @@ metadata:
   name: ibm-common-service-operator
   namespace: {{NAMESPACE}}
 spec:
-  channel: v4.3
+  channel: v4.6
   installPlanApproval: Automatic
   name: ibm-common-service-operator
   source: ibm-operator-catalog

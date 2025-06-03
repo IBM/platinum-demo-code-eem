@@ -22,7 +22,7 @@ spec:
   collector: {}
   license:
     accept: true
-    license: L-HRZF-DWHH7A
+    license: L-AUKS-FKVXVL
     use: EventAutomationNonProduction
   requestIbmServices:
     iam: false
@@ -38,7 +38,7 @@ spec:
   strimziOverrides:
     kafka:
       config:
-        inter.broker.protocol.version: '3.5'
+        inter.broker.protocol.version: '3.9'
         offsets.topic.replication.factor: 1
         transaction.state.log.min.isr: 1
         transaction.state.log.replication.factor: 1
@@ -66,4 +66,11 @@ spec:
       replicas: 1
       storage:
         type: ephemeral
+    nodePools:
+      - name: kafka
+        replicas: 1
+        storage:
+          type: ephemeral
+        roles:
+          - broker    
   version: latest

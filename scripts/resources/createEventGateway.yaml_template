@@ -5,7 +5,7 @@ metadata:
 spec:
   license:
     accept: true
-    license: L-HRZF-DWHH7A
+    license: L-AUKS-FKVXVL
     metric: VIRTUAL_PROCESSOR_CORE
     use: EventAutomationNonProduction
   managerEndpoint: '{{EEM_GATEWAY_URL}}'
